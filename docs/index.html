@@ -6,196 +6,184 @@
   <title>Iris 與 AI4I 智慧診斷與評估報告</title>
   <style>
     /* ============================================
-       根容器與全局設定
+       根容器與全局重置
        ============================================ */
-    :root {
-      --primary: #2c3e50;
-      --secondary: #3498db;
-      --accent: #e74c3c;
-      --light: #f5f7fa;
-      --white: #ffffff;
-      --shadow: 0 2px 4px rgba(0,0,0,0.1);
-      --transition: 0.3s;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--light);
-      color: var(--primary);
-      line-height: 1.6;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-      box-sizing: border-box;
+      background: #f8fafc;
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 30px;
     }
 
-    h1, h2, h3 { color: var(--primary); }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 { margin: 0; }
 
     /* ============================================
-       頁首
+       頂部標題
        ============================================ */
     .page-header {
       text-align: center;
-      padding: 2rem 1rem;
-      background: var(--white);
-      margin-bottom: 2rem;
-      border-radius: 8px;
-      box: var(--shadow);
+      margin-bottom: 32px;
     }
     .page-header h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--primary), #2c3e50);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 1.8rem;
+      color: #1e293b;
+      margin-bottom: 8px;
     }
     .page-header p {
-      color: #666;
+      color: #64748b;
+      font-size: 0.95rem;
+    }
+
+    /* ============================================
+       推論卡片區（兩張卡片並排或單列）
+       ============================================ */
+    .inference-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .inference-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .inference-card h3 {
+      margin: 0 0 16px 0;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    /* Iris 表單 */
+    .iris-form .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.9rem; }
+    .form-group input { width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+    .form-group input:focus { outline: none; border-color: #3b82f6; }
+    .submit-btn { width: 100%; padding: 0.6rem; background: #3b82f6; color: #fff; border: none; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-top: 0.5rem; }
+    .submit-btn:hover { background: #2563e7; }
+
+    /* AI4I 表單 */
+    .ai4i-form .form-group { margin-bottom: 0.8rem; }
+    .ai4i-form .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 500; font-size: 0.9rem; }
+    .ai4i-form .form-group input { width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; }
+
+    /* ============================================
+       模型評估結果表格卡片
+       ============================================ */
+    .model-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      padding: 24px;
+    }
+    .model-card h3 {
+      margin: 0 0 16px 0;
+      font-size: 1rem;
+      color: #1e293b;
+      text-align: center;
+    }
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+    }
+    .model-table th, .model-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
       font-size: 0.9rem;
     }
-
-    /* ============================================
-       切換標籤
-       ============================================ */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      background: var(--white);
-      padding: 0.5rem;
-      border-radius: 8px;
-      box: var(--shadow);
+    .model-table th {
+      background: #f1f5f9;
+      color: #64748b;
+      font-weight: 600;
     }
-    .tab-btn {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: transparent;
-      color: #666;
-      font-weight: 500;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: var(--transition);
+    .model-table tr { border-bottom: 1px solid #e2e8f0; }
+    .model-table .best { color: #059669; font-weight: 600; }
+
+    /* ============================================
+       圖片圖表區（垂直排列，絕對禁止 position: absolute）
+       ============================================ */
+    .gallery-section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      padding: 24px;
     }
-    .tab-btn:hover { background: #eef2f7; color: var(--primary); }
-    .tab-btn.active { background: var(--white); color: var(--primary); border-bottom: 2px solid var(--secondary); }
+    .gallery-section h3 {
+      margin: 0 0 24px 0;
+      font-size: 1rem;
+      color: #1e293b;
+      text-align: center;
+    }
 
-    /* ============================================
-       內容區
-       ============================================ */
-    .content-area { background: var(--white); padding: 2rem; border-radius: 8px; box: var(--shadow); margin-bottom: 2rem; }
-
-    /* ============================================
-       Iris 表單
-       ============================================ */
-    .iris-form .form-group { margin-bottom: 0.8rem; }
-    .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.9rem; }
-    .form-group input { width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 4px; transition: var(--transition); }
-    .form-group input:focus { border-color: var(--secondary); outline: none; }
-    .form-group input:disabled { background: #f0f0f0; color: #999; }
-    .submit-btn { width: 100%; padding: 0.6rem; background: var(--secondary); color: var(--white); border: none; border-radius: 4px; cursor: pointer; font-weight: 600; margin-top: 0.5rem; transition: var(--transition); }
-    .submit-btn:hover { background: #2980b9; transform: translateY(-1px); }
-    .submit-btn:disabled { background: #95a5a6; cursor: not-allowed; }
-
-    /* ============================================
-       AI4I 表單
-       ============================================ */
-    .ai4i-form .form-group { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.6rem; }
-    .ai4i-form .form-group label { grid-column: 1; font-weight: normal; font-size: 0.8rem; padding-top: 0.1rem; }
-    .ai4i-form .form-group input { grid-column: 2; padding: 0.5rem; }
-
-    /* ============================================
-       結果卡片
-       ============================================ */
-    .result-card { padding: 1rem; border-radius: 8px; margin-top: 0.8rem; display: none; }
-    .result-card.active { display: block; }
-    .result-card.iris { border-left: 3px solid #3498db; }
-    .result-card.ai4i { border-left: 3px solid #e74c3c; }
-
-    /* ============================================
-       評估報告區
-       ============================================ */
-    .report-section { margin-top: 1.5rem; }
-    .model-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
-    .model-table th, .model-table td { padding: 0.5rem 0.6rem; text-align: left; border-bottom: 1px solid #e0e0e0; font-size: 0.85rem; }
-    .model-table th { color: #555; font-weight: 600; background: #f8f9fa; }
-    .model-table tr:nth-child(even) { background: #fafafa; }
-    .model-table .best { color: #27ae60; font-weight: bold; }
-
-    /* ============================================
-       圖片展示網格 (重點修復)
-       ============================================ */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 20px;
-      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
     }
     .gallery .card {
-      border: none;
+      background: #fff;
       border-radius: 8px;
-      background: var(--white);
-      box: var(--shadow);
+      box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1);
       overflow: hidden;
-      transition: var(--transition);
     }
-    .gallery .card:hover { box: 0 4px 12px rgba(0,0,0,0.15); }
     .gallery .card img {
-      max-width: 100%;
+      width: 100%;
+      max-width: 700px;
       height: auto;
       display: block;
-      object-fit: cover;
-      width: 100%;
+      margin: 0 auto;
     }
     .gallery .card .caption {
-      padding: 0.8rem;
+      padding: 12px;
       text-align: center;
-      color: #666;
-      font-size: 0.8rem;
-      background: #fafafa;
+      color: #64748b;
+      font-size: 0.85rem;
+      background: #f8fafc;
     }
 
     /* ============================================
-       推論卡片區 (新增)
+       結果顯示區
        ============================================ */
-    .inference-card {
-      background: var(--white);
-      border: 1px solid #e0e0e0;
+    .result-display {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f1f5f9;
       border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box: var(--shadow);
+      display: none;
     }
-    .inference-card h3 { margin-top: 0; margin-bottom: 0.8rem; font-size: 1.1rem; }
-
-    /* ============================================
-       清除浮動
-       ============================================ */
-    .clearfix::after { content: ""; display: table; clear: both; }
+    .result-display.active { display: block; }
   </style>
 </head>
 <body>
 
-  <!-- 頁首 -->
-  <header class="page-header">
-    <h1>Iris 與 AI4I 智慧診斷與評估報告</h1>
-    <p>基於機器學習的花卉分類與工業故障預測系統</p>
-  </header>
+  <div class="container">
+    <!-- ============================================
+       頂部標題
+       ============================================ -->
+    <header class="page-header">
+      <h1>Iris 與 AI4I 智慧診斷與評估報告</h1>
+      <p>基於機器學習的花卉分類與工業故障預測系統</p>
+    </header>
 
-  <!-- 切換標籤 -->
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="inference">互動推論預測</button>
-    <button class="tab-btn" data-tab="report">實驗評估報告</button>
-  </div>
-
-  <!-- 內容區 -->
-  <div class="content-area" id="content-area">
-    <!-- Iris 推論區 -->
-    <div id="inference-section" class="content-area">
+    <!-- ============================================
+       推論卡片區（Iris + AI4I）
+       ============================================ -->
+    <section class="inference-section">
       <div class="inference-card">
-        <h3>🌸 Iris 花朵分類預測</h2>
+        <h3>🌸 Iris 花朵分類互動表單</h3>
         <div class="iris-form">
           <div class="form-group">
             <label>花萼長度 (cm)</label>
@@ -216,13 +204,9 @@
           <button class="submit-btn" onclick="runIrisInference()">預測類別</button>
         </div>
       </div>
-      <div id="iris-result" class="result-card iris" style="display: none;"></div>
-    </div>
 
-    <!-- AI4I 推論區 -->
-    <div id="ai4i-section" class="content-area" style="display: none;">
       <div class="inference-card">
-        <h2>🔧 AI4I 2020 設備故障機率預測</h2>
+        <h2>🔧 AI4I 2020 設備故障預測</h2>
         <div class="ai4i-form">
           <div class="form-group">
             <label>空氣溫度 (K)</label>
@@ -247,170 +231,178 @@
           <button class="submit-btn" onclick="runAI4IInference()">計算故障率</button>
         </div>
       </div>
-      <div id="ai4i-result" class="result-card ai4i" style="display: none;"></div>
-    </div>
+    </section>
 
-    <!-- 評估報告區 -->
-    <div id="report-section" class="content-area" style="display: none;">
-      <h2>📊 實驗評估報告</h2>
-
-      <div class="model-table-section">
+    <!-- ============================================
+       模型評估結果表格
+       ============================================ -->
+    <section class="model-section">
+      <div class="model-card">
         <h3>模型效能比較</h3>
-        <table class="model-table" id="model-table">
+        <table class="model-table">
           <thead>
             <tr>
               <th>模型</th>
               <th>準確率</th>
-              <th>狀態</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td>MLP</td>
+              <td>0.9065 <span class="best">[Best]</span></td>
+            </tr>
+            <tr>
+              <td>Random Forest</td>
+              <td>0.8990</td>
+            </tr>
+            <tr>
+              <td>XGBoost</td>
+              <td>0.8310</td>
+            </tr>
+            <tr>
+              <td>Logistic Regression</td>
+              <td>0.4995</td>
+            </tr>
+          </tbody>
         </table>
       </div>
+    </section>
 
-      <div class="report-notes" id="performance-notes">
-        <ul style="list-style-type: none; padding: 0;">
-          <li style="margin-bottom: 6px;"><strong>最佳模型:</strong> <span id="best-model">Loading...</span> (準確率: <span id="best-accuracy">Loading...</span>)</li>
-          <li><strong>模型總數:</strong> <span id="total-models">Loading...</span></li>
-          <li><strong>評估指標:</strong> <span id="metric">Loading...</span></li>
-        </ul>
-      </div>
+    <!-- ============================================
+       圖片圖表區（垂直單行排版，絕對不使用 position: absolute）
+       ============================================ -->
+    <section class="gallery-section">
+      <h3>圖表展示</h3>
+      <div class="gallery">
+        <!-- PCA 3D 視覺化 -->
+        <div class="card">
+          <img src="figures/pca_3d_plot.png" alt="PCA 3D 視覺化">
+          <div class="caption">PCA 3D 視覺化</div>
+        </div>
 
-      <div class="gallery" id="gallery">
-        <!-- 圖片將由 JavaScript 填入 -->
+        <!-- 混淆矩陣 -->
+        <div class="card">
+          <img src="figures/confusion_matrices.png" alt="混淆矩陣">
+          <div class="caption">混淆矩陣</div>
+        </div>
+
+        <!-- 相關性熱力圖 -->
+        <div class="card">
+          <img src="figures/correlation_heatmap.png" alt="相關性熱力圖">
+          <div class="caption">相關性熱力圖</div>
+        </div>
+
+        <!-- 特徵分佈箱鬚圖 -->
+        <div class="card">
+          <img src="figures/feature_distribution_boxplots.png" alt="特徵分佈箱鬚圖">
+          <div class="caption">特徵分佈箱鬚圖</div>
+        </div>
+
+        <!-- 模型比較圖 -->
+        <div class="card">
+          <img src="figures/model_comparison.png" alt="模型比較圖">
+          <div class="caption">模型比較圖</div>
+        </div>
+
+        <!-- 故障分佈圖 -->
+        <div class="card">
+          <img src="figures/failure_distribution.png" alt="故障分佈圖">
+          <div class="caption">故障分佈圖</div>
+        </div>
+
+        <!-- 訓練曲線 -->
+        <div class="card">
+          <img src="figures/training_curves.png" alt="訓練曲線">
+          <div class="caption">訓練曲線</div>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 
+  <!-- ============================================
+     讀取 app.js 與 model_params.js 進行推論
+       應用於 Iris 與 AI4I 兩個表單
+       ============================================ -->
   <script src="app.js" defer></script>
 
   <script>
-    // 切換標籤功能
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const tab = btn.dataset.tab;
-        document.querySelectorAll('#inference-section, #report-section').forEach(section => {
-          section.style.display = 'none';
-        });
-        document.getElementById(tab + '-section').style.display = 'block';
-      });
-    });
-
-    // 載入模型評估資料
+    /* ============================================
+       讀取 model_results.json 顯示模型評估資訊
+       ============================================ */
     document.addEventListener('DOMContentLoaded', function() {
       fetch('results.json')
         .then(response => response.json())
         .then(data => {
-          // 填入模型比較表格
-          const models = data.evaluation.models;
-          const tableBody = document.querySelector('#model-table tbody');
-          
-          models.forEach((model, index) => {
-            const tr = document.createElement('tr');
-            const statusClass = index === 0 ? 'best' : '';
-            tr.innerHTML = `<td>${model.model}</td><td>${model.accuracy.toFixed(4)}</td><td><span class="${statusClass}">${index === 0 ? 'Best' : ''}</span></td>`;
-            tableBody.appendChild(tr);
-          });
-
-          // 更新摘要資訊
-          document.getElementById('best-model').textContent = data.evaluation.best_model;
-          document.getElementById('best-accuracy').textContent = data.evaluation.best_accuracy.toFixed(4);
-          document.getElementById('total-models').textContent = data.metadata.total_models;
-          document.getElementById('metric').textContent = data.metadata.evaluation_metric;
-
-          // 填入圖片展示網格
-          const gallery = document.getElementById('gallery');
-          const images = [
-            { src: 'figures/confusion_matrices.png', title: '混淆矩陣' },
-            { src: 'figures/correlation_heatmap.png', title: '相關性熱力圖' },
-            { src: 'figures/failure_distribution.png', title: '故障分佈圖' },
-            { src: 'figures/feature_distribution_boxplots.png', title: '特徵分佈箱鬚圖' },
-            { src: 'figures/model_comparison.png', title: '模型比較圖' },
-            { src: 'figures/pca_3d_plot.png', title: 'PCA 3D 視覺化' },
-            { src: 'figures/training_curves.png', title: '訓練曲線' }
-          ];
-
-          images.forEach(img => {
-            const card = document.createElement('div');
-            card.className = 'gallery-card';
-            card.innerHTML = `<img src="${img.src}" alt="${img.title}"><div class="caption">${img.title}</div>`;
-            gallery.appendChild(card);
-          });
+          // 這裡可以進一步增強表格資訊，但我們直接寫死準確率已在 HTML 中
+          // 若需動態顯示，可在此解析 data.evaluation.models 等欄位
         })
-        .catch(error => {
-          console.error('Error loading results.json:', error);
-          document.getElementById('model-table').innerHTML = '<tr><td colspan="3">載入失敗，請確認 results.json 存在</td></tr>';
-        });
+        .catch(error => console.error('Error loading results.json:', error));
     });
 
-    // Iris 推論功能
+    /* ============================================
+       Iris 分類互動推論
+       ============================================ */
     function runIrisInference() {
       const sepalLength = document.getElementById('sepal-length').value;
       const sepalWidth = document.getElementById('sepal-width').value;
       const petalLength = document.getElementById('petal-length').value;
       const petalWidth = document.getElementById('petal-width').value;
-      
+
       if (!sepalLength || !sepalWidth || !petalLength || !petalWidth) {
         alert('請填寫所有四個輸入欄位。');
         return;
       }
-      
+
       const results = inferIris(sepalLength, sepalWidth, petalLength, petalWidth);
       displayIrisResult(results);
     }
 
     function displayIrisResult(results) {
-      const resultDiv = document.getElementById('iris-result');
-      resultDiv.style.display = 'block';
-      resultDiv.className = 'result-card iris';
-      resultDiv.innerHTML = `
-        <h4>🌸 Iris 分類結果</h4>
-        <p><strong>預測類別:</strong> <span style="color: #2c3e50; font-weight: bold;">${results.class}</span></p>
-        <p><strong>機率:</strong></p>
-        <ul style="list-style-type: none; padding: 0;">
-          <li>Setosa: ${results.probabilities.setosa.toFixed(4)}</li>
-          <li>Versicolor: ${results.probabilities.versicolor.toFixed(4)}</li>
-          <li>Virginica: ${results.probabilities.virginica.toFixed(4)}</li>
-        </ul>
+      const display = document.createElement('div');
+      display.className = 'result-display active';
+      display.innerHTML = `
+        <strong>預測類別:</strong> ${results.class}<br>
+        <strong>Setosa 機率:</strong> ${results.probabilities.setosa.toFixed(4)}<br>
+        <strong>Versicolor 機率:</strong> ${results.probabilities.versicolor.toFixed(4)}<br>
+        <strong>Virginica 機率:</strong> ${results.probabilities.virginica.toFixed(4)}
       `;
+      // 將結果顯示在 AI4I 卡片下方或頁尾區塊（此處簡化：在頁面顯示區塊）
+      const section = document.querySelector('.inference-section');
+      section.appendChild(display);
     }
 
-    // AI4I 推論功能
+    /* ============================================
+       AI4I 故障預測互動推論
+       ============================================ */
     function runAI4IInference() {
       const airTemp = document.getElementById('air-temp').value;
       const processTemp = document.getElementById('process-temp').value;
       const rotationalSpeed = document.getElementById('rotational-speed').value;
       const torque = document.getElementById('torque').value;
       const toolWear = document.getElementById('tool-wear').value;
-      
+
       if (!airTemp || !processTemp || !rotationalSpeed || !torque || !toolWear) {
         alert('請填寫所有五個輸入欄位。');
         return;
       }
-      
+
       const results = inferAI4I(airTemp, processTemp, rotationalSpeed, torque, toolWear);
       displayAI4IResult(results);
     }
 
     function displayAI4IResult(results) {
-      const resultDiv = document.getElementById('ai4i-result');
-      resultDiv.style.display = 'block';
-      resultDiv.className = 'result-card ai4i';
-      resultDiv.innerHTML = `
-        <h4>🔧 故障預測結果</h4>
-        <p><strong>故障機率:</strong> <span style="color: #e74c3c; font-weight: bold;">${results.failure ? '是' : '否'}</span></p>
-        <p><strong>機率:</strong></p>
-        <ul style="list-style-type: none; padding: 0;">
-          <li>無故障: ${results.probabilityNoFailure.toFixed(4)}</li>
-          <li>故障: ${results.probabilityFailure.toFixed(4)}</li>
-        </ul>
-        <p><strong>信心度:</strong> ${(results.confidence * 100).toFixed(2)}%</p>
+      const display = document.createElement('div');
+      display.className = 'result-display active';
+      display.innerHTML = `
+        <strong>故障機率:</strong> ${results.failure ? '是' : '否'}<br>
+        <strong>無故障機率:</strong> ${results.probabilityNoFailure.toFixed(4)}<br>
+        <strong>故障機率:</strong> ${results.probabilityFailure.toFixed(4)}<br>
+        <strong>信心度:</strong> ${(results.confidence * 100).toFixed(2)}%
       `;
+      const section = document.querySelector('.inference-section');
+      section.appendChild(display);
     }
   </script>
-
+</div>
 </body>
 </html>
