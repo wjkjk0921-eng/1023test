@@ -1,0 +1,15 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "rules": {
+    "complexity": ["error", 10],
+    "max-depth": ["error", 3],
+    "max-lines-per-function": ["error", 50],
+    "cognitive-complexity": ["error", 15],
+    "no-undef": "error",
+    "sonarjs/no-useless-else": "error",
+    "sonarjs/cognitive-complexity": ["error", 15]
+  }
+}

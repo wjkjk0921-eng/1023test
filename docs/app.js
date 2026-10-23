@@ -187,7 +187,7 @@ function inferAI4I(airTemp, processTemp, rotationalSpeed, torque, toolWear) {
   h1 = relu(h1);
   
   // fc2: Hidden1(32) -> Hidden2(16)
-  let h2 = linear(h1, /* ai4i_fc2_weight, ai4i_fc2_bias */, ai4i_fc2_bias);
+  let h2 = linear(h1, ai4i_fc2_weight, ai4i_fc2_bias);
   h2 = relu(h2);
   
   // fc3: Hidden2(16) -> Output(2)

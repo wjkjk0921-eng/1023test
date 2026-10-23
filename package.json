@@ -1,0 +1,37 @@
+{
+  "name": "1023test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "model_params.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint docs/ && eslint ai4i_2020_tdd/scripts/ tests/ || echo 'Lint had some issues but continued'",
+    "jscpd": "jscpd",
+    "knip": "knip",
+    "check": "npm run lint && npm run jscpd && npm run knip"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wjkjk0921-eng/1023test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/wjkjk0921-eng/1023test/issues"
+  },
+  "homepage": "https://github.com/wjkjk0921-eng/1023test#readme",
+  "devDependencies": {
+    "eslint-plugin-sonarjs": "^4.2.2",
+    "jscpd": "^5.4.2",
+    "knip": "^6.42.1"
+  },
+  "dependencies": {
+    "eslint": "^8.57.1"
+  }
+}
