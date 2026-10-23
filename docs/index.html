@@ -3,186 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>機器學習模型互推論示範</title>
+  <title>AI4I 2020 模型效能報告</title>
   <style>
-    /* ==========================================
-       BASE STYLES
-       ========================================== */
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f7fa;
-      color: #333;
-    }
-
-    h1, h2, h3 {
-      color: #2c3e50;
-    }
-
-    /* ==========================================
-       CONTAINER LAYOUT
-       ========================================== */
-    .container {
-      display: grid;
-      gap: 20px;
-    }
-
-    @media (min-width: 768px) {
-      .container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    /* ==========================================
-       FORMS
-       ========================================== */
-    .form-card {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .form-card h3 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #eee;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-
-    .form-group small {
-      color: #888;
-      font-size: 0.85em;
-      display: block;
-      margin-top: 5px;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .submit-btn:hover {
-      background-color: #2980b9;
-    }
-
-    /* ==========================================
-       RESULTS AREA
-       ========================================== */
-    #results-area {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      display: none;
-      background: white;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .result-card.iris {
-      border-left: 4px solid #e67e22;
-    }
-
-    .result-card.ai4i {
-      border-left: 4px solid #9b59b6;
-    }
+    body {font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; background-color: #f5f7fa; color: #333;}
+    h1, h2, h3 {color: #2c3e50;}
+    .container {display: grid; gap: 20px; margin-bottom: 30px;}
+    @media (min-width: 768px) {.container {grid-template-columns: 1fr 1fr;}}
+    .card {background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+    .card h3 {margin-top: 0; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eee;}
+    .table {width: 100%; border-collapse: collapse;}
+    .table th, .table td {padding: 10px; text-align: left; border-bottom: 1px solid #ddd;}
+    .table th {color: #555; font-weight: bold;}
+    .card figcaption {text-align: center; color: #666; margin-top: 10px; font-size: 0.9em;}
+    #results-area {margin-top: 20px; padding: 15px; border-radius: 8px; display: none; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+    .result-card {border-left: 4px solid #3498db;}
+    .best {font-weight: bold; color: #27ae60;}
   </style>
 </head>
 <body>
 
-  <h1>🤖 機器學習模型互推論示範</h1>
-  <p>雙擊切換 between Iris 分類與 AI4I 2020 故障預測</p>
+  <h1>AI4I 2020 模型效能報告</h1>
+  <p>基於 AI4I 2020 數據集的機器學習模型比較與效能分析</p>
 
   <div class="container">
-    <!-- Iris Form -->
-    <div class="form-card">
-      <h3>🌸 Iris 花分類</h3>
-      <form id="iris-form">
-        <div class="form-group">
-          <label>花萼長度 (cm)</label>
-          <input type="number" id="sepal-length" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>花萼寬度 (cm)</label>
-          <input type="number" id="sepal-width" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>花瓣長度 (cm)</label>
-          <input type="number" id="petal-length" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>花瓣寬度 (cm)</label>
-          <input type="number" id="petal-width" step="0.01" required>
-        </div>
-        <button type="submit" class="submit-btn">預測類別</button>
-      </form>
+    <div class="card">
+      <h3>📊 模型效能比較</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>模型</th>
+            <th>準確率</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody id="model-table"></tbody>
+      </table>
     </div>
 
-    <!-- AI4I 2020 Form -->
-    <div class="form-card ai4i">
-      <h3>🔧 AI4I 2020 故障預測</h3>
-      <form id="ai4i-form">
-        <div class="form-group">
-          <label>空氣溫度 (K)</label>
-          <input type="number" id="air-temp" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>製程溫度 (K)</label>
-          <input type="number" id="process-temp" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>轉速 (rpm)</label>
-          <input type="number" id="rotational-speed" step="1" required>
-        </div>
-        <div class="form-group">
-          <label>扭矩 (Nm)</label>
-          <input type="number" id="torque" step="0.01" required>
-        </div>
-        <div class="form-group">
-          <label>刀具磨耗 (min)</label>
-          <input type="number" id="tool-wear" step="0.1" required>
-        </div>
-        <button type="submit" class="submit-btn">預測故障機率</button>
-      </form>
+    <div class="card">
+      <h3>📈 效能說明</h3>
+      <p>根據 model_results.csv 評估，顯示 4 個分類模型的準確率表現。</p>
+      <ul id="performance-notes" style="list-style-type: none; padding: 0;">
+        <li style="margin-bottom: 8px;"><strong>最佳模型:</strong> <span id="best-model">Loading...</span> (準確率: <span id="best-accuracy">Loading...</span>)</li>
+        <li><strong>模型總數:</strong> <span id="total-models">Loading...</span></li>
+        <li><strong>評估指標:</strong> <span id="metric">Loading...</span></li>
+      </ul>
     </div>
   </div>
 
-  <!-- Shared Results Area -->
   <div id="results-area" class="result-card"></div>
 
-  <!-- Import model parameters -->
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
+
+  <script>
+    // Load model evaluation data from results.json
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('results.json')
+        .then(response => response.json())
+        .then(data => {
+          const models = data.evaluation.models;
+          const tableBody = document.getElementById('model-table');
+          const bestModelEl = document.getElementById('best-model');
+          const bestAccuracyEl = document.getElementById('best-accuracy');
+          const totalModelsEl = document.getElementById('total-models');
+          const metricEl = document.getElementById('metric');
+
+          // Populate model table
+          models.forEach((model, index) => {
+            const tr = document.createElement('tr');
+            const statusClass = index === 0 ? 'best' : '';
+            tr.innerHTML = '<td>' + model.model + '</td>' + '<td>' + model.accuracy.toFixed(4) + '</td>' + '<td><span class="' + statusClass + '">' + (index === 0 ? 'Best' : '') + '</span></td>';
+            tableBody.appendChild(tr);
+          });
+
+          // Update best model info
+          bestModelEl.textContent = data.evaluation.best_model;
+          bestAccuracyEl.textContent = data.evaluation.best_accuracy.toFixed(4);
+          totalModelsEl.textContent = data.metadata.total_models;
+          metricEl.textContent = data.metadata.evaluation_metric;
+        })
+        .catch(error => {
+          console.error('Error loading results.json:', error);
+          document.getElementById('model-table').innerHTML = '<tr><td colspan="3">載入失敗，請確認 results.json 存在</td></tr>';
+        });
+    });
+  </script>
+
 </body>
 </html>

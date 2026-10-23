@@ -1,0 +1,30 @@
+{
+  "dataset": "AI4I 2020 Fault Prediction",
+  "evaluation": {
+    "models": [
+      {
+        "model": "MLP",
+        "accuracy": 0.9065
+      },
+      {
+        "model": "Random Forest",
+        "accuracy": 0.899
+      },
+      {
+        "model": "XGBoost",
+        "accuracy": 0.831
+      },
+      {
+        "model": "Logistic Regression",
+        "accuracy": 0.4995
+      }
+    ],
+    "best_model": "MLP",
+    "best_accuracy": 0.9065
+  },
+  "metadata": {
+    "total_models": 4,
+    "evaluation_metric": "accuracy",
+    "source_file": "reports/model_results.csv"
+  }
+}
