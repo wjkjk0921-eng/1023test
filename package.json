@@ -27,11 +27,9 @@
   },
   "homepage": "https://github.com/wjkjk0921-eng/1023test#readme",
   "devDependencies": {
+    "eslint": "^8.57.1",
     "eslint-plugin-sonarjs": "^4.2.2",
     "jscpd": "^5.4.2",
     "knip": "^6.42.1"
-  },
-  "dependencies": {
-    "eslint": "^8.57.1"
   }
 }

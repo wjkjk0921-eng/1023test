@@ -1,0 +1,5 @@
+# JSCPD Ignore Configuration
+# Exclude node_modules from duplication analysis
+# Project-internal clones are the focus for code quality
+
+node_modules/

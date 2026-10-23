@@ -1,0 +1,104 @@
+[
+  {
+    "case_id": 1,
+    "model": "AI4I 2020",
+    "input": {
+      "air_temp": 300.0,
+      "process_temp": 350.0,
+      "rot_speed": 1500.0,
+      "torque": 50.0,
+      "tool_wear": 50.0
+    },
+    "probabilities": [
+      1.0,
+      5.753744499941394e-134
+    ],
+    "predicted_class": "No Failure",
+    "confidence": 1.0
+  },
+  {
+    "case_id": 2,
+    "model": "AI4I 2020",
+    "input": {
+      "air_temp": 320.0,
+      "process_temp": 370.0,
+      "rot_speed": 1800.0,
+      "torque": 80.0,
+      "tool_wear": 90.0
+    },
+    "probabilities": [
+      1.0,
+      6.305320838613346e-162
+    ],
+    "predicted_class": "No Failure",
+    "confidence": 1.0
+  },
+  {
+    "case_id": 3,
+    "model": "AI4I 2020",
+    "input": {
+      "air_temp": 310.0,
+      "process_temp": 360.0,
+      "rot_speed": 1600.0,
+      "torque": 60.0,
+      "tool_wear": 70.0
+    },
+    "probabilities": [
+      1.0,
+      1.143319362122895e-143
+    ],
+    "predicted_class": "No Failure",
+    "confidence": 1.0
+  },
+  {
+    "case_id": 1,
+    "model": "Iris",
+    "input": {
+      "sepal_length": 5.1,
+      "sepal_width": 3.5,
+      "petal_length": 1.4,
+      "petal_width": 0.2
+    },
+    "probabilities": [
+      3.397083636358263e-05,
+      0.9939392102409518,
+      0.006026818922684631
+    ],
+    "predicted_class": "versicolor",
+    "confidence": 0.0
+  },
+  {
+    "case_id": 2,
+    "model": "Iris",
+    "input": {
+      "sepal_length": 7.0,
+      "sepal_width": 3.2,
+      "petal_length": 4.7,
+      "petal_width": 1.4
+    },
+    "probabilities": [
+      2.559634192721658e-21,
+      2.4321233359555086e-12,
+      0.999999999997568
+    ],
+    "predicted_class": "virginica",
+    "confidence": 0.0
+  },
+  {
+    "case_id": 3,
+    "model": "Iris",
+    "input": {
+      "sepal_length": 6.3,
+      "sepal_width": 3.3,
+      "petal_length": 6.0,
+      "petal_width": 2.5
+    },
+    "probabilities": [
+      2.9736930180811727e-28,
+      1.937322832972335e-17,
+      1.0
+    ],
+    "predicted_class": "virginica",
+    "confidence": 0.0
+  }
+]

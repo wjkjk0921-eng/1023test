@@ -3,6 +3,13 @@
     "node": true,
     "es2021": true
   },
+  "plugins": [
+    "sonarjs"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:sonarjs/recommended"
+  ],
   "rules": {
     "complexity": ["error", 10],
     "max-depth": ["error", 3],
