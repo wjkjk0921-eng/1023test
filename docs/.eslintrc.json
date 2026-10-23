@@ -3,6 +3,14 @@
     "browser": true,
     "es2021": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "globals": {
+    "document": "readonly",
+    "window": "readonly"
+  },
   "rules": {
     "complexity": ["error", 10],
     "max-depth": ["error", 3],

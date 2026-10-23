@@ -4,6 +4,7 @@
 // Model parameters extracted from Python training
 // All model parameters are directly used from trained Python models
 // No backend required - pure browser-based inference
+/* global document, window */
 
 // ==========================================
 // IRIS MODEL PARAMETERS (from Python training)
